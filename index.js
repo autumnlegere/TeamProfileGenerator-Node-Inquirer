@@ -1,31 +1,22 @@
-// Need:
-// jest for running tests ✅
-// gitignore that does not include dist❓
-
 // To Do:
-// generates html
-// create tests for each part of code
 // walkthrough video
 // email address link with auto populated 'to'
 // github username links to github and opens in new tab
-// manager name, id, email, office #
-// after manager, menu for adding engineer or intern or finish team
-// engineer name, ID, email, and GitHub username, return to menu
-// intern name, ID, email, and school, return to menu
 // finish team generates html
 
-// index.js should run the application
-// this means we need to export all other files and require them here ✅
-// require inquirer and fs ✅
+// validate: async (input) => {
+//     if (input !== 'y' || input !== 'n') {
+//        return 'Incorrect asnwer';
+//     }
 
+//     return true;
+//  }
 
 
 /*
 Pseudocode:
     In order to set up the command line prompts I will need:        
-        function for printing html content
         iterate through results and print to dom
-        save each result separately and access it as object or array or something
 */
 
 
@@ -220,8 +211,8 @@ function menuOptions() {
             createIntern();
         } else {
             console.log('You team profile is complete!')
-            // console.log(teamMembers)
-            printTeam();
+            console.log(teamMembers)
+            // printTeam();
 
         };
     });
@@ -230,9 +221,10 @@ function menuOptions() {
 
 function printTeam() {
     teamMembers.map(function (data) {
-        console.log(data);
+        console.log(data.Manager.name);
     })
 }
+
 
 // call function to start command line prompts
 createManager()
