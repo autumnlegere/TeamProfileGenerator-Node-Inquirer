@@ -194,3 +194,4 @@ https://github.com/JamesLJenks/10_OOP-Team-Profile-Generator
 https://www.freecodecamp.org/news/how-to-use-html-to-open-link-in-new-tab/ (link in new tab)
 https://www.tutorialspoint.com/html/html_email_links.htm (mailto:)
 https://stackoverflow.com/questions/57321266/how-to-test-inquirer-validation (validate for inquirer)
+https://stackoverflow.com/questions/45812160/unexpected-comma-using-map (remove commas between mapped objects)

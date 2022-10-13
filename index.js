@@ -1,91 +1,15 @@
-// To Do:
-// walkthrough video
-// email address link with auto populated 'to'
-// github username links to github and opens in new tab
-// finish team generates html
-
-// validate: async (input) => {
-//     if (input !== 'y' || input !== 'n') {
-//        return 'Incorrect asnwer';
-//     }
-
-//     return true;
-//  }
-
-
-/*
-Pseudocode:
-    In order to set up the command line prompts I will need:        
-        iterate through results and print to dom
-*/
-
-
+// require all necessary files and npm's
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Engineer = require('./lib/engineer')
 const Intern = require('./lib/intern')
 const Manager = require('./lib/manager')
 
+// empty arrays to be filled with team data
 teamMembers = [];
+teamEngineers = [];
+teamInterns = [];
 
-function generateHTML(data) {
-    return `
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" src="style.css">
-    <title>Document</title>
-</head>
-<body>
-    <header class="jumbotron">
-        <h1 class="text-center">My Team</h1>
-    </header>
-    <div class="d-flex row text-center justify-content-center" id="teamInfoHere">
-        <div class="card col-3 m-1">
-            <h2>${manager.getName}</h2>
-            <h2>${manager.getRole}</h2>
-            <p>ID: ${manager.getId}</p>
-            <p><a href = "mailto: ${manager.getEmail}">${manager.getEmail}</a></p>
-            <p>Office Number: ${manager.officeNumber}</p>
-        </div>
-        <div class="card col-3 m-1">            
-            <h2>Name</h2>
-            <h2>Title</h2>
-            <p>ID:</p>
-            <p>Email:</p>
-            <p>Github: <a href="https://github.com/${engineer.getGithub}" target="_blank" rel="noopener noreferrer">${engineer.getGithub}</a>.</p>
-        <div class="card col-3 m-1">
-            <h2>Name</h2>
-            <h2>Title</h2>
-            <p>ID:</p>
-            <p>Email:</p>
-            <p>Github:</p>
-        </div>
-        <div class="card col-3 m-1">
-            <h2>Name</h2>
-            <h2>Title</h2>
-            <p>ID:</p>
-            <p>Email:</p>
-            <p>Github:</p>
-        </div>
-        <div class="card col-3 m-1">
-            <h2>Name</h2>
-            <h2>Title</h2>
-            <p>ID:</p>
-            <p>Email:</p>
-            <p>Github:</p>
-        </div>
-    </div>
-
-    
-</body>
-</html>
-`;
-}
 
 // initial questions in command line prompt about manager
 const startQuestions = [
@@ -175,7 +99,41 @@ const menuQuestion = [
     },
 ]
 
-// function to display manager questions, use data to create to instance of Manager class, and then display menu options
+// function to generate content of new html
+function generateHTML(data) {
+    return `
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" src="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="jumbotron">
+        <h1 class="text-center">My Team</h1>
+    </header>
+    <div class="d-flex row text-center justify-content-center" id="teamInfoHere">
+        <div class="card col-3 m-1">
+            <h2>${data[0].getName()}</h2>
+            <h3>${data[0].getRole()}</h3>
+            <p class="list-group-item">ID: ${data[0].getId()}</p>
+            <p class="list-group-item">Email: <a href = "mailto: ${data[0].getEmail()}">${data[0].getEmail()}</a></p>
+            <p class="list-group-item">Office Number: ${data[0].getOfficeNumber()}</p>
+        </div>
+        ${printEngineer(teamEngineers)}     
+        ${printIntern(teamInterns)}     
+    </div>
+
+</body>
+</html>
+`;
+}
+
+// function to display manager questions, use data to create to instance of Manager class, push instance into array, and then display menu options
 function createManager() {
     inquirer.prompt(startQuestions).then((response) => {
         const manager = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOffice)
@@ -184,20 +142,20 @@ function createManager() {
     })
 }
 
-// function to display engineer questions, use data to create to instance of Engineer class, and then display menu options
+// function to display engineer questions, use data to create to instance of Engineer class, push instance into array, and then display menu options
 function createEngineer() {
     inquirer.prompt(engineerQuestions).then((response) => {
         const engineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub)
-        teamMembers.push(engineer);
+        teamEngineers.push(engineer);
         menuOptions();
     });
 }
 
-// function to display intern questions, use data to create to instance of Intern class, and then display menu options
+// function to display intern questions, use data to create to instance of Intern class, push instance into array, and then display menu options
 function createIntern() {
     inquirer.prompt(internQuestions).then((response) => {
         const intern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool)
-        teamMembers.push(intern);
+        teamInterns.push(intern);
         menuOptions();
     });
 }
@@ -211,20 +169,46 @@ function menuOptions() {
             createIntern();
         } else {
             console.log('You team profile is complete!')
-            console.log(teamMembers)
-            // printTeam();
-
+            writeHTML(teamMembers);
         };
     });
 };
 
-
-function printTeam() {
-    teamMembers.map(function (data) {
-        console.log(data.Manager.name);
-    })
+// function to create new html file
+function writeHTML(data) {
+    fs.writeFile('./dist/index.html', generateHTML(data),  (err) =>
+    err ? console.log(err) : console.log('Success!'))
 }
 
+// function to organize data from instances of new Engineer into html format to be displayed
+function printEngineer(engineers) {
+    return engineers.map(function (engineer) {
+        return `   
+        <div class="card col-3 m-1"> 
+        <h2>${engineer.getName()}</h2>
+        <h3>${engineer.getRole()}</h3>
+        <p class="list-group-item">ID: ${engineer.getId()}</p>
+        <p class="list-group-item">Email: <a href = "mailto: ${engineer.getEmail()}">${engineer.getEmail()}</a></p>
+        <p class="list-group-item">Github: <a href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></p>
+        </div> 
+        `;
+    }).join('')
+}
+
+// function to organize data from instances of new Intern into html format to be displayed
+function printIntern(interns) {
+    return interns.map(function (intern) {
+        return `   
+        <div class="card col-3 m-1"> 
+        <h2>${intern.getName()}</h2>
+        <h3>${intern.getRole()}</h3>
+        <p class="list-group-item">ID: ${intern.getId()}</p>
+        <p class="list-group-item">Email: <a href = "mailto: ${intern.getEmail()}">${intern.getEmail()}</a></p>
+        <p class="list-group-item">School: ${intern.getSchool()}</p>
+        </div> 
+        `;
+    }).join('')
+};
 
 // call function to start command line prompts
 createManager()
