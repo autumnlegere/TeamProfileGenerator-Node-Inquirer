@@ -109,7 +109,7 @@ function generateHTML(data) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" src="style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
@@ -121,7 +121,7 @@ function generateHTML(data) {
             <h2>${data[0].getName()}</h2>
             <h3>${data[0].getRole()}</h3>
             <p class="list-group-item">ID: ${data[0].getId()}</p>
-            <p class="list-group-item">Email: <a href = "mailto: ${data[0].getEmail()}">${data[0].getEmail()}</a></p>
+            <p class="list-group-item">Email: <a href = "mailto: ${data[0].getEmail()}" target="_blank" rel="noopener noreferrer">${data[0].getEmail()}</a></p>
             <p class="list-group-item">Office Number: ${data[0].getOfficeNumber()}</p>
         </div>
         ${printEngineer(teamEngineers)}     
@@ -188,7 +188,7 @@ function printEngineer(engineers) {
         <h2>${engineer.getName()}</h2>
         <h3>${engineer.getRole()}</h3>
         <p class="list-group-item">ID: ${engineer.getId()}</p>
-        <p class="list-group-item">Email: <a href = "mailto: ${engineer.getEmail()}">${engineer.getEmail()}</a></p>
+        <p class="list-group-item">Email: <a href = "mailto: ${engineer.getEmail()}" target="_blank" rel="noopener noreferrer">${engineer.getEmail()}</a></p>
         <p class="list-group-item">Github: <a href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></p>
         </div> 
         `;
@@ -203,7 +203,7 @@ function printIntern(interns) {
         <h2>${intern.getName()}</h2>
         <h3>${intern.getRole()}</h3>
         <p class="list-group-item">ID: ${intern.getId()}</p>
-        <p class="list-group-item">Email: <a href = "mailto: ${intern.getEmail()}">${intern.getEmail()}</a></p>
+        <p class="list-group-item">Email: <a href = "mailto: ${intern.getEmail()}" target="_blank" rel="noopener noreferrer">${intern.getEmail()}</a></p>
         <p class="list-group-item">School: ${intern.getSchool()}</p>
         </div> 
         `;
