@@ -12,7 +12,7 @@ To use this project simply download the content, open the terminal for the index
  
 ## Link to Project Github
  
-[commandteam](https://github.com/autumnlegere/commandteam)
+[github.com/autumnlegere/commandteam](https://github.com/autumnlegere/commandteam)
 
 
 ## Video Demonstration

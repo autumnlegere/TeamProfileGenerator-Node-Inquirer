@@ -1,4 +1,4 @@
-// require all necessary files and npm's
+// require all necessary dependencies
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Engineer = require('./lib/engineer')
